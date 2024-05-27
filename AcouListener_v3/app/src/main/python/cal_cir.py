@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 def main(AUDIO_DATA, AUDIO_FILE):
     AUDIO_DATA - np.array(AUDIO_DATA)
     # obj_tmp.main(AUDIO_FILE)
-    print("------------------------------------------------python-main")
+    print("------------------------------------------------python-main", AUDIO_FILE)
     # print(AUDIO_DATA.shape)
     # print(AUDIO_FILE)
     # if para:
@@ -67,6 +67,7 @@ class cir_test():
         fs = 48000
         wn1 = 2*4000/2/fs
         b, a = signal.butter(6,  wn1, 'lowpass')
+        print("+++++++++++++++", len(Y_data))
         Y_data = signal.filtfilt(b,a,np.array(Y_data))
         Y_data = Y_data / np.max(Y_data)
         # 找最开始值

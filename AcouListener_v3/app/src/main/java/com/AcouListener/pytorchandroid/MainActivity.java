@@ -56,6 +56,8 @@ import android.media.MediaRecorder;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import android.graphics.BitmapFactory;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 
 
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     protected void CirResult (){
-        File CIR_outputFile = new File(Environment.getExternalStorageDirectory() + "/3/cir_image.png");
+        File CIR_outputFile = new File(Environment.getExternalStorageDirectory() + "/AcouListener/cir_image.png");
         if (CIR_outputFile.exists()) {
             Intent resultView = new Intent(this, Result.class);   // 新建一个活动，result类
             try {
@@ -148,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AudioRecord audioRecord;
     private int bufferSize;
     private String RECORDING_outputFile;
+    private Thread recordingThread;
 
     private void initRecorder() {
         // 初始化 AudioRecord
@@ -161,7 +164,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 设置输出文件路径
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String fileName = "recording" + timeStamp + ".wav";
-        RECORDING_outputFile = Environment.getExternalStorageDirectory() + "/3/" + fileName;
+        RECORDING_outputFile = Environment.getExternalStorageDirectory() + "/AcouListener/" + fileName;
+
+        String directoryPath = Environment.getExternalStorageDirectory() + "/AcouListener/";
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
     }
 
     private void startRecording() {
@@ -169,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         audioRecord.startRecording();
 
         // 在单独的线程中执行录音操作
-        Thread recordingThread = new Thread(new Runnable() {
+        recordingThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 FileOutputStream fileOutputStream = null;
@@ -206,11 +216,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         isRecording = false;  // 设置录音停止
 
         try {
+            recordingThread.join();
             audioRecord.stop();
             audioRecord.release();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
     }
 
 
@@ -337,7 +351,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Python py = Python.getInstance();
         // 将 Java 的 short[] 数组转换为一个 NumPy 数组
         PyObject audioDataPyObj = py.getModule("numpy").callAttr("array", audioDataShort);
-        String CIR_outputFile = Environment.getExternalStorageDirectory() + "/3/";
+        String CIR_outputFile = Environment.getExternalStorageDirectory() + "/AcouListener/";
 //        System.out.println("---------------------audioData 数组的长度：" + audioDataShort.length);
         py.getModule("cal_cir").callAttr("main", audioDataPyObj, CIR_outputFile);
     }
