@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    tools:context=".MainActivity"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:max="10000"
+        android:progress="0" />
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textSize="16sp" />
+
+
+    <Button
+        android:id="@+id/record_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Record_Start" />
+
+
+    <Button
+        android:id="@+id/record_stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Record_Stop" />
+
+
+
+    <Button
+        android:id="@+id/play_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Play_Start" />
+
+    <Button
+        android:id="@+id/play_stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Play_Stop" />
+
+
+
+
+
+
+
+
+
+
+
+    <include layout="@layout/content_main" />
+
+</LinearLayout>
