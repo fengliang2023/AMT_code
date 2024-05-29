@@ -32,7 +32,7 @@ In the attack scenarios, a volunteer sits on a chair in front of the desk, wears
 
 # AcouListener
 ## Introduction
-We have developed an Android based application, namely AcouListener. This application can transmit training audio at inaudible frequency band, collect audio, and calculate CIR in attack scenarios. Subsequently, through a built-in network model trained specifically for the attack scenario, the application is able to recognize the corresponding gestures.
+We have developed an Android based application, namely AcouListener. This application can transmit training audio at an inaudible frequency band, collect audio, and calculate CIR in attack scenarios. Subsequently, through a built-in network model trained specifically for the attack scenario, the application is able to recognize the corresponding gestures.
 
 ![shotscreen](image1.png)
 
@@ -49,3 +49,16 @@ We have developed an Android based application, namely AcouListener. This applic
 3. Click the **RECORD_STOP Button** to end the recording and complete data collection.
 4. Click the **PLAY_STOP Button** to stop playing the training audio.
 5. Click the **SHOW THE GESTURE Button** Shows the gesture recognized based on cir.
+
+## App Development
+For different scenarios, the application framework remains unchanged. Only the corresponding trained recognition network model needs to be replaced. The software code only needs to be imported into Android Studio to compile and generate the corresponding APK. 
+
+- The code of the app framework can be found: at: `cd /AcouListener` <br/>
+
+- The path to replace the model is: `cd /AcouListener/app/src/main/assets` <br/>
+
+- We provide a model trained on data collected for the attack scenarios 2 for reference, with the path at: `cd /cnn_model/save_mode` <br/>
+
+- We have provided an APK based on Scenario 2 for reference. It is suitable for attack scenario 2 and can recognize 15 gestures. The download address is at: `cd /AcouListener/app/build/outputs/apk/debug` <br/>
+
+![shotscreen](image2.png)
